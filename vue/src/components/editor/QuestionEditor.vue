@@ -127,6 +127,7 @@
 
 <script setup>
 import { ref, computed } from 'vue';
+import {v4 as uuidv4} from 'uuid';
 import store from "../../store";
 
 const props = defineProps({
@@ -191,6 +192,14 @@ function dataChange() {
     }
 
     emit("change",data);
+}
+
+function addQuestion(){
+    emit("addQuestion", props.index + 1);
+}
+
+function deleteQuestion(){
+    emit("deleteQuestion", props.question);
 }
 
 
