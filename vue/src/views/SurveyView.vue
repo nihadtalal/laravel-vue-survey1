@@ -21,7 +21,7 @@
                             Image
                         </label>
                         <div class="mt-1 flex items-center">
-                            <img v-if="model.image" :src="model.image" :alt="model.title"
+                            <img v-if="model.image_url" :src="model.image_url" :alt="model.title"
                                 class="w-64 h-48 object-cover" />
                             <span v-else
                                 class="flex items-center justify-center h-12 w-12 rounded-full overflow-hidden bg-gray-100">
@@ -34,7 +34,7 @@
                             </span>
                             <button type="button"
                                 class="relative overflow-hidden ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                <input type="file"
+                                <input type="file" @change="onImageChoose"
                                     class="absolute left-0 top-0 right-0 bottom-0 opacity-0 cursor-pointer" />
                                 Change</button>
                         </div>
@@ -156,6 +156,21 @@ if (route.params.id) {
         (s) => s.id === parseInt(route.params.id)
     );
 }
+
+function onImageChoose(ev){
+    const file = ev.target.files[0];
+
+    const reader = new FileReader();
+    reader.onload=()=>{
+        //The filed to send on backend and apply validations
+        model.value.image = reader.result;
+
+        //The field to display here
+        model.value.image_url=reader.result;
+    };
+    reader.readAsDataURL(file);
+}
+
 
 function addQuestion(index){
     const newQuestion ={
