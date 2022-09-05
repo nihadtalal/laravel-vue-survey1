@@ -80,7 +80,7 @@ class SurveyController extends Controller
             $data['image'] = $relativePath;
 
             // var_dump($survey->image);
-            
+
             //If there is an old image, delete it
             if($survey->image){
                 $absolutePath = public_path($survey->image);
@@ -90,7 +90,7 @@ class SurveyController extends Controller
         }
 
         //Update Survey in the database
-       $survey = Survey::update($data);
+       $survey->update($data);
 
        return new SurveyResource($survey);
     }

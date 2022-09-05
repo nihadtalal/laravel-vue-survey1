@@ -147,6 +147,7 @@ let model = ref({
     status: false,
     description: null,
     image: null,
+    image_url:null,
     expire_date: null,
     questions: [],
 });
@@ -157,7 +158,7 @@ watch(
     (newVal, oldVal)=>{
         model.value={
             ...JSON.parse(JSON.stringify(newVal)),
-            status:newVal.status !== "draft",
+            status: newVal.status !== "draft",
         };
     }
 );
