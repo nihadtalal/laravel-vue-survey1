@@ -30,6 +30,7 @@
         </div>
       </div>
       <div v-else-if="question.type === 'checkbox'">
+        <pre>{{ model }}</pre>
         <div v-for="(option, ind) of question.data.options" :key="option.uuid" class="flex items-center">
           <input :id="option.uuid" @change="onCheckboxChange" v-model="model[option.text]" type="checkbox"
             class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" />
@@ -65,6 +66,16 @@ const emits = defineEmits(["update:modelValue"]);
 let model;
 if (question.type === "checkbox") {
   model = ref({});
+}
+
+function onCheckboxChange($event){
+  const selectedOptions = [];
+  for (let text in model.value){
+    if(model.value[text]){
+      selectedOptions.push(text);
+    }
+  }
+  emits("update:modelValue", selectedOptions);
 }
 </script>
 
