@@ -284,6 +284,7 @@ const store = createStore({
       },
         logout:(state)=>{
             state.user.data={};
+            sessionStorage.clear();
             state.user.token = null;
         },
         setUser:(state, userData)=>{
